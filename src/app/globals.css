@@ -1,6 +1,4 @@
 @import "tailwindcss";
-@tailwind utilities;
-
 
 
 :root {
@@ -57,4 +55,8 @@ body {
 
 .btn-secondary {
   @apply bg-gray-200 hover:bg-gray-300 text-black py-2 px-4 rounded transition-all;
+}
+
+.btn-disabled {
+  @apply bg-gray-600 text-white py-2 px-4 rounded transition-all;
 }
