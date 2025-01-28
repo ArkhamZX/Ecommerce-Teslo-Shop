@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from 'react';
+import { useActionState, useEffect } from 'react';
 import Link from "next/link";
 import { useFormState, useFormStatus } from "react-dom";
 
@@ -13,7 +13,7 @@ export const LoginForm = () => {
 
 
   // const router = useRouter();
-  const [state, dispatch] = useFormState(authenticate, undefined);
+  const [state, dispatch] = useActionState(authenticate, undefined);
   
   console.log(state);
 
