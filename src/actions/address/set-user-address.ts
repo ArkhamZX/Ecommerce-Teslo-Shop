@@ -12,6 +12,7 @@ export const setUserAddress = async (address: Address, userId: string) => {
 			address: newAddress,
 		};
 	} catch (error) {
+		console.log(error);
 		return {
 			ok: false,
 			message: "No se pudo grabar la dirección",

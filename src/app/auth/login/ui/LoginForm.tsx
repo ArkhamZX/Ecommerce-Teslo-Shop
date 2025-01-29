@@ -2,7 +2,7 @@
 
 import { useActionState, useEffect } from 'react';
 import Link from "next/link";
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 
 import { authenticate } from "@/actions";
 import { IoInformationOutline } from "react-icons/io5";
