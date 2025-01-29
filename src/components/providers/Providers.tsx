@@ -1,14 +1,23 @@
 "use client";
 
+import {PayPalScriptProvider} from "@paypal/react-paypal-js";
+import {SessionProvider} from "next-auth/react";
 
-// https://github.dev/nextauthjs/next-auth-v5-example
+interface Props {
+	children: React.ReactNode;
+}
 
-import { SessionProvider } from "next-auth/react";
-import type { Session } from "next-auth";
+export const Providers = ({children}: Props) => {
 
-export const Providers = ({
-  children,
-  session,
-}: React.PropsWithChildren<{ session: Session|null }>) => {
-  return <SessionProvider session={session}>{children}</SessionProvider>;
+	return (
+		<PayPalScriptProvider
+			options={{
+				clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ?? "",
+        intent: "capture",
+        currency: "USD",
+			}}
+		>
+			<SessionProvider>{children}</SessionProvider>
+		</PayPalScriptProvider>
+	);
 };
