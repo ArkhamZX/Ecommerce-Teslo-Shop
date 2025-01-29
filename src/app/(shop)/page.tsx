@@ -1,53 +1,38 @@
 export const revalidate = 60; // 60 segundos
 
+import {redirect} from "next/navigation";
 
-import { redirect } from 'next/navigation';
+import {getPaginatedProductsWithImages} from "@/actions";
+import {Pagination, ProductGrid, Title} from "@/components";
 
-import { getPaginatedProductsWithImages } from '@/actions';
-import { Pagination, ProductGrid, Title } from '@/components';
-
-
+interface Props {
+	searchParams: Promise<{page?: string}>;
+}
 
 // interface Props {
-//   searchParams: {
-//     page?: string; 
-//   }
+//   params: Promise<any>
+//   searchParams: Promise<any>
 // }
 
-interface Props { 
-  params: Promise<any>
-  searchParams: Promise<any>
-} 
+export default async function Home({searchParams}: Props) {
+	const searchParamsResolved = await searchParams;
+	const page = searchParamsResolved.page
+		? parseInt(searchParamsResolved.page)
+		: 1;
 
+	const {products, totalPages} = await getPaginatedProductsWithImages({page});
 
-export default async function Home({ searchParams }: Props) {
+	if (products.length === 0) {
+		redirect("/");
+	}
 
-  const searchParamsResolved = await searchParams;
-  const page = searchParamsResolved.page ? parseInt(searchParamsResolved.page) : 1;
+	return (
+		<>
+			<Title title="Tienda" subtitle="Todos los productos" className="mb-2" />
 
-  const { products, currentPage, totalPages } = await getPaginatedProductsWithImages({ page });
+			<ProductGrid products={products} />
 
-
-  if ( products.length === 0 ) {
-    redirect('/');
-  }
-
-
-  return (
-    <>
-      <Title
-        title="Tienda"
-        subtitle="Todos los productos"
-        className="mb-2"
-      />
-
-      <ProductGrid 
-        products={ products }
-      />
-
-
-      <Pagination totalPages={ totalPages } />
-      
-    </>
-  );
+			<Pagination totalPages={totalPages} />
+		</>
+	);
 }

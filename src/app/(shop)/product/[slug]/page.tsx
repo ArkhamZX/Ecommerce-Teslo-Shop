@@ -1,5 +1,5 @@
 export const revalidate = 604800; //7 días
-import {Metadata, ResolvingMetadata} from "next";
+import {Metadata} from "next";
 
 import {notFound} from "next/navigation";
 
@@ -7,22 +7,18 @@ import {titleFont} from "@/config/fonts";
 import {
 	ProductMobileSlideshow,
 	ProductSlideshow,
-	QuantitySelector,
-	SizeSelector,
 	StockLabel,
 } from "@/components";
 import {getProductBySlug} from "@/actions";
-import {promises} from "dns";
 import { AddToCart } from "./ui/AddToCart";
 
 interface Props {
-	params: Promise<any>;
-	slug: Promise<any>;
+  params: Promise<{ slug: string }>  
 }
 
+
 export async function generateMetadata(
-	{params}: Props,
-	parent: ResolvingMetadata
+  {params}: Props
 ): Promise<Metadata> {
 	// read route params
 	const { slug } = await params;

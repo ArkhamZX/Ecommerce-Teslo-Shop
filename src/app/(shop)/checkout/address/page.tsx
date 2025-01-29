@@ -1,4 +1,3 @@
-import Link from 'next/link';
 
 import { Title } from '@/components';
 import { getCountries, getUserAddress } from '@/actions';
